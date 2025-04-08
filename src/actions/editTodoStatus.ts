@@ -21,18 +21,48 @@ export const editTodoStatus = async (formData: FormData) => {
     throw new Error("Invalid type");
   }
 
+  let data;
+
+  async function editTodoSingle () {
+    if (real === 'day') {
+      data = await db.day.update({
+        where: { id: realId },
+        data: { status },
+      });
+    } else if (real === 'week') {
+      data = await db.week.update({
+        where: { id: realId },
+        data: { status },
+      });
+    } else if (real === 'month') {
+      data = await db.month.update({
+        where: { id: realId },
+        data: { status },
+      });
+    } else if (real === 'year') {
+      data = await db.year.update({
+        where: { id: realId },
+        data: { status },
+      });
+    } else if (real === 'other') {
+      data = await db.other.update({
+        where: { id: realId },
+        data: { status },
+      });
+    }
+  }
+
   await Promise.all([
-    (db[real] as any).update({
-      where: { id: realId },
-      data: { status },
-    }),
+    editTodoSingle(),
     db.all.update({
       where: { id },
       data: { status },
     }),
   ]);
 
+
   console.log("Todo updated successfully");
+  console.log(data);
 
   // 🔥 this should NOT be in the try/catch
   redirect(`/todo/${id}`);

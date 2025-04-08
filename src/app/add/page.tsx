@@ -50,6 +50,7 @@ const AddTodoPage = () => {
       await addTodo(new FormData(e.currentTarget));
     } catch (err) {
       setError("Failed to add todo. Please try again.");
+      console.log("error:", err)
     } finally {
       setPending(false)
     }
@@ -62,16 +63,14 @@ const AddTodoPage = () => {
       <p className='text-gray-600'>Enter the task you want to add below:</p>
       <form onSubmit={addTodoHandler} className='flex flex-col items-center justify-between w-full max-w-lg mt-4 space-y-2'>
         <input name='todo' type="text" placeholder='Enter your task' className='border-2 border-gray-300 rounded-lg p-2 w-full' onChange={inputChange} />
-        <select name='type' className='border-2 border-gray-300 rounded-lg p-2 w-full' onChange={selectChange} children={
-          <>
+        <select name='type' className='border-2 border-gray-300 rounded-lg p-2 w-full' onChange={selectChange} >
             <option value="">Choose A Option</option>
             <option value="day">Day Task</option>
             <option value="week">Week Task</option>
             <option value="month">Month Task</option>
             <option value="year">Year Task</option>
             <option value="other">Other Task</option>
-          </>
-        } />
+          </select>
         <button type="submit" className='bg-blue-500 text-white rounded-lg p-2 w-full'>{pending ? "...Adding" : "Add Todo"}</button>
       </form>
       {error &&

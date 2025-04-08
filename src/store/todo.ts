@@ -33,7 +33,7 @@ export const useTodoStore = create<todoStore>((set) => ({
   autoDelete: () => {
     try {
       const res = axiosInstance.delete("/api/todos")
-      console.log("Todos deleted successfully", res.data)
+      console.log("Todos deleted successfully", res)
       toast.success("Todos deleted successfully old todos to make upto Date");
     } catch (error) {
       console.error("Error deleting todos", error)

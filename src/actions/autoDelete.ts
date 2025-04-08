@@ -20,22 +20,49 @@ export const deleteData = async (type: 'day' | 'week' | 'month' | 'year') => {
       throw new Error('Invalid type')
   }
 
-  const modelMap = {
-    day: db.day,
-    week: db.week,
-    month: db.month,
-    year: db.year,
+  let data;
+
+  if (type === 'day') {
+    data = await db.day.deleteMany({
+      where: {
+        createdAt: {
+          lt: timeLimit,
+        },
+      },
+    })
+  } else if (type === 'week') {
+    data = await db.week.deleteMany({
+      where: {
+        createdAt: {
+          lt: timeLimit,
+        },
+      },
+    })
+  } else if (type === 'month') {
+    data = await db.month.deleteMany({
+      where: {
+        createdAt: {
+          lt: timeLimit,
+        },
+      },
+    })
+  } else if (type === 'year') {
+    data = await db.year.deleteMany({
+      where: {
+        createdAt: {
+          lt: timeLimit,
+        },
+      },
+    })
+  } else if (type === 'other') {
+    data = await db.other.deleteMany({
+      where: {
+        createdAt: {
+          lt: timeLimit,
+        },
+      },
+    })
   }
 
-  const model = modelMap[type] as any // Type-safe access
-
-  const { count } = await model.deleteMany({
-    where: {
-      createdAt: {
-        lt: timeLimit,
-      },
-    },
-  })
-
-  console.log(`Deleted ${count} old ${type} entries.`)
+  console.log(`Deleted ${(data as { count: number }).count} old ${type} entries.`)
 }

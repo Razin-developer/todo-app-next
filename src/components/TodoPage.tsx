@@ -55,7 +55,7 @@ const TodoPage = ({ id }: { id: string }) => {
       const selected = newTodos.find(todo => todo.id === id);
       setFiltered(selected);
     });
-  }, [id]);
+  }, [id, setTodos]);
 
   if (!filtered) {
     return (
@@ -157,8 +157,8 @@ const TodoPage = ({ id }: { id: string }) => {
                 <DialogHeader>
                   <DialogTitle>Edit your Todo</DialogTitle>
                   <DialogDescription>
-                    Make changes to your todo here. Click save when you're done.<br />
-                    <span className="text-sm text-red-400 ml-2">* Don't left the fields empty causes error</span><br />
+                    Make changes to your todo here. Click save when you&apos;re done.<br />
+                    <span className="text-sm text-red-400 ml-2">* Don&apos;t left the fields empty causes error</span><br />
                     <span className="text-sm text-red-400 ml-2">* Minimum letters of 3. Below 3 causes error</span><br />
                   </DialogDescription>
                 </DialogHeader>
@@ -209,8 +209,8 @@ const TodoPage = ({ id }: { id: string }) => {
                 <DialogHeader>
                   <DialogTitle>Edit your Todo Status</DialogTitle>
                   <DialogDescription>
-                    Make changes to your todo status here. Click save when you're done.<br />
-                    <span className="text-sm text-red-400 ml-2">* Don't left the fields empty causes error</span><br />
+                    Make changes to your todo status here. Click save when you&apos;re done.<br />
+                    <span className="text-sm text-red-400 ml-2">* Don&apos;t left the fields empty causes error</span><br />
                   </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={statusSubmit}>

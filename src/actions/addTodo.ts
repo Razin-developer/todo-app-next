@@ -1,21 +1,55 @@
 "use server";
 
 import db from "@/lib/db";
+import { Todo } from "@/types/todo";
 import { redirect } from "next/navigation";
 
 async function addTodoToDb(todo: string, type: 'day' | 'week' | 'month' | 'year' | 'other') {
-  const data = await (db[type] as any).create({
-    data: {
-      todo,
-      status: 'active',
-    },
-  });
+  let data;
+
+  if (type === 'day') {
+    data = await db.day.create({
+      data: {
+        todo,
+        status: 'active',
+      },
+    });
+  } else if (type === 'week') {
+    data = await db.week.create({
+      data: {
+        todo,
+        status: 'active',
+      },
+    });
+  } else if (type === 'month') {
+    data = await db.month.create({
+      data: {
+        todo,
+        status: 'active',
+      },
+    });
+  } else if (type === 'year') {
+    data = await db.year.create({
+      data: {
+        todo,
+        status: 'active',
+      },
+    });
+  } else if (type === 'other') {
+    data = await db.other.create({
+      data: {
+        todo,
+        status: 'active',
+      },
+    });
+  }
+
 
   const allData = await db.all.create({
     data: {
       todo,
       status: 'waiting',
-      realId: data.id,
+      realId: (data as Todo).id,
       real: type,
     },
   });

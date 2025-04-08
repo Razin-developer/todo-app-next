@@ -14,7 +14,7 @@ const TodoList = () => {
     setTodos().then(() => {
       setLoading(false);
     });
-  }, []);
+  }, [setTodos]);
 
   if (loading) {
     return <div className='flex items-center justify-center h-screen w-full space-x-5'>

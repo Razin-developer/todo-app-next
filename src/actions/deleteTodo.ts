@@ -8,12 +8,43 @@ export const deleteTodo = async (id: string | undefined, type: string, allId: st
     throw new Error("Invalid input")
   }
 
+  let data;
+
+  async function deleteTodoFromSingle() {
+    if (type === 'day') {
+      data = await db.day.delete({
+        where: {
+          id
+        }
+      });
+    } else if (type === 'week') {
+      data = await db.week.delete({
+        where: {
+          id
+        }
+      });
+    } else if (type === 'month') {
+      data = await db.month.delete({
+        where: {
+          id
+        }
+      });
+    } else if (type === 'year') {
+      data = await db.year.delete({
+        where: {
+          id
+        }
+      });
+    } else if (type === 'other') {
+      data = await db.other.delete({
+        where: {
+          id
+        }
+      });
+    }
+  }
   Promise.all([
-    (db[type] as any).delete({
-      where: {
-        id
-      }
-    }),
+    deleteTodoFromSingle(),
     db.all.delete({
       where: {
         id: allId,
@@ -23,5 +54,7 @@ export const deleteTodo = async (id: string | undefined, type: string, allId: st
     })
   ]);
 
+  console.log(data);
+  
   redirect(`/todos/${type}`)
 }

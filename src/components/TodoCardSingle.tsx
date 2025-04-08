@@ -21,7 +21,7 @@ const TodoCardSingle = ({ type }: { type: string }) => {
       const selected = newTodos.filter(todo => todo.real === type);
       setFiltered(selected);
     });
-  }, [type]);
+  }, [type, setTodos]);
 
   if (loading) {
     return (
